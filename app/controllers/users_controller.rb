@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-
+    @teams = Team.all
     #debugging
     # @a = user_params.inspect
     # @b = team_params.inspect
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-
+    @teams = Team.all
     @user.name = user_params[:name]
     @team = Team.find(team_params[:id])
     @user.team = @team
