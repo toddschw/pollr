@@ -1,8 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Team name</strong>
+
+<p>
   <%= @team.name %>
+
+
+
+<p>
+  <strong>Members</strong>
+
+<p>
+  <% @team.users.each do |user_object| %>
+    <%= user_object.name %><br>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_team_path(@team) %> |

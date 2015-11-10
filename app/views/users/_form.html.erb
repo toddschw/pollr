@@ -12,10 +12,36 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label "Your Name:" %><br>
     <%= f.text_field :name %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+
+  <%= form_for(@team) do |a| %>
+
+  <%# Create 2 label options - for new, edit %>
+
+    <div class="field">
+      <%= a.label "Join an Existing Team:" %><br>
+      <!-- <%= select(:team, :id, Team.all.map { |t| [t.name, t.name] }) %> -->
+      <ul>
+      <% @teams.each do |team| %>
+        <%= a.radio_button :id, team.id %>  <%= team.name %><br>
+      <% end %>
+      </ul>
+    </div>
+
+
+ <p>Otherwise, create a new team for your group</p>
+
+  <div class="field">
+    <%= a.label :name %><br>
+    <%= a.text_field :name %>
   </div>
+
+  <div class="actions">
+    <%= f.submit && a.submit %>
+
+  </div>
+  <% end %>
 <% end %>

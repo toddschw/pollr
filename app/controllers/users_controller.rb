@@ -5,6 +5,8 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+    @teams = Team.all
+    @first_user = User.first
   end
 
   # GET /users/1
@@ -15,16 +17,40 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    @teams = Team.all
+    @team = Team.new
   end
 
   # GET /users/1/edit
   def edit
+    @team = @user.team
+    @teams = Team.all
   end
 
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
+
+    #debugging
+    # @a = user_params.inspect
+    # @b = team_params.inspect
+    # @c = params
+
+    # create a new user
+    @user = User.new user_params
+
+    # determine if team has been passed in
+    if team_params[:id]
+      # if field exists, a team exists
+      # simply update the team
+      @team = Team.find team_params[:id]
+    else
+      # create a new team
+      @team = Team.new team_params
+    end
+
+    # assign user's team to either the exising team or a new team
+    @user.team = @team
 
     respond_to do |format|
       if @user.save
@@ -40,6 +66,12 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+
+    @user.name = user_params[:name]
+    @team = Team.find(team_params[:id])
+    @user.team = @team
+
+
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -67,8 +99,16 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    # def set_team
+    #   @team_selected = Team.find(:all, :params => )
+    # end
+
+    def team_params
+      params.require(:team).permit(:id, :name)
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name)
+      params.require(:user).permit(:name, :team_id)
     end
 end
