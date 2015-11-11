@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   validates :name, presence: true
+  validates :username, presence: true
   # validate :validate_team_id
 
   belongs_to :team

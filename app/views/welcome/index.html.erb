@@ -4,6 +4,14 @@
 
 <hr>
 
-<p>If you're an exsting user, you can <%= link_to "reload this page", root_path %></p>
+<p>If you're an exsting user, log in:
+
+
+
+  <%= form_tag("/users/dashboard", method: "post") do %>
+    <%= label_tag(:u, "Username:") %>
+    <%= text_field_tag(:username) %>
+    <%= submit_tag("  Go   ") %>
+  <% end %>
 
 <hr>

@@ -6,10 +6,13 @@
 </p>
 
 <p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
   <strong>Team:</strong>
   <%= @user.team.name %>
 </p>
 
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', root_path %> (This back button requires you to log in again....)

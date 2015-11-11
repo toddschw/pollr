@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     # determine if team has been passed in
     if team_params[:id]
       # if field exists, a team exists
-      # simply update the team
+      # update the team
       @team = Team.find team_params[:id]
     else
       # create a new team
@@ -67,8 +67,22 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     @teams = Team.all
+
+    # update user attributes
     @user.name = user_params[:name]
-    @team = Team.find(team_params[:id])
+    @user.username = user_params[:username]
+
+    # set values for team model
+    if team_params[:id]
+      # if field exists, a team exists
+      # update the team
+      @team = Team.find team_params[:id]
+    else
+      # new team
+      @team = Team.new team_params
+    end
+
+    # update team model
     @user.team = @team
 
 
@@ -95,7 +109,9 @@ class UsersController < ApplicationController
 
 
   def dashboard
-    @user = User.find user_params[:name]
+    @user = User.find_by username: params[:username]
+    @team = @user.team
+
   end
 
 
@@ -117,6 +133,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :team_id)
+      params.require(:user).permit(:name, :team_id, :username)
     end
 end

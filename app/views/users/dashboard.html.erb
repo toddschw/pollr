@@ -1,0 +1,38 @@
+<% if @user.nil? %>
+<%= "We couldn't find you....remember usernames are case sensitive" %><Br>
+<%= link_to "Try Logging in Again", root_path %>
+
+<% else %>
+
+<h1>Welcome,   <%= @user.name.capitalize %>  </h1>
+
+<p>
+  <strong>You're on team:</strong>
+  <%= @user.team.name.capitalize %>
+</p>
+
+<strong>You're <%= @team.users.count %> team members are:</strong>
+
+<ol>
+<% @team.users.each do |user_object| %>
+  <li><%= user_object.name %>
+    <% if user_object.name == @user.name %><%= "(yourself)" %>
+    <% end %>
+  </li>
+<% end %>
+</ol>
+<% end %>
+
+<p><strong>Your Teams Polls Are</strong></p>
+<ul>
+  <li>Poll 1  [Vote] [View Result] </li>
+</ul>
+
+<p>
+  <%= link_to "Edit", edit_user_path(@user.id) %> -
+
+
+
+<% #This is not a functional logout %>
+<%= link_to "Logout", root_path %>
+</p>

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
-  post 'welcome' => 'users#dashboard'
+  post 'users/dashboard' => 'users#dashboard'
 
 
 
