@@ -1,11 +1,14 @@
 class User < ActiveRecord::Base
   validates :name, presence: true
+  # validate :validate_team_id
+
   belongs_to :team
-  validate :validate_team_id
 
   private
 
   def validate_team_id
-    errors.add(:team_id, "is invalid") unless Team.exists?(self.team_id)
+    if  !(Team.exists?(self.team_id)) || !(self.name.present?)
+      errors.add(:team_id, "is invalid")
+    end
   end
 end
