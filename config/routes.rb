@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+
+
   resources :results
   resources :polls
   resources :users
@@ -10,7 +13,9 @@ Rails.application.routes.draw do
   root 'welcome#index'
   post 'users/dashboard' => 'users#dashboard'
 
+  get 'polls/vote/:id'  => 'polls#vote'
 
+  post 'polls/tabulatevote/' => 'polls#tabulatevote'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -1,5 +1,28 @@
 class PollsController < ApplicationController
-  before_action :set_poll, only: [:show, :edit, :update, :destroy]
+  before_action :set_poll, only: [:show, :edit, :update, :destroy, :vote]
+
+
+  def vote
+  end
+
+  def tabulatevote
+
+    # render plain: params
+
+    @vote_for = params[:candidate]
+    @results = Result.all
+    @results.each do |result|
+      if @vote_for == result.candidate
+        result.votes += 1
+        result.save
+      end
+    end
+
+    @poll = Poll.find_by id: params[:pollid]
+    redirect_to @poll
+  end
+
+
 
   # GET /polls
   # GET /polls.json
@@ -10,6 +33,7 @@ class PollsController < ApplicationController
   # GET /polls/1
   # GET /polls/1.json
   def show
+    @results = @poll.results
   end
 
   # GET /polls/new

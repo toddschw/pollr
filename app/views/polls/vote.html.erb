@@ -1,0 +1,11 @@
+<h1><%= @poll.title %></h1>
+
+
+<%= form_tag("http://localhost:3000/polls/tabulatevote/", method: "post") do %>
+<% @poll.results.each do |results| %>
+  <input type="radio" name="candidate" value="<%= results.candidate %>""><%= results.candidate %> <br>
+<% end %>
+<input type="hidden" name="pollid" value="<%= @poll.id %>">
+
+  <%= submit_tag("  Go   ") %>
+<% end %>

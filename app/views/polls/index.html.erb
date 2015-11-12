@@ -14,6 +14,7 @@
     <% @polls.each do |poll| %>
       <tr>
         <td><%= poll.title %></td>
+        <td><a href="polls/vote/<%= poll.id %>">Vote</a></td>
         <td><%= link_to 'Show', poll %></td>
         <td><%= link_to 'Edit', edit_poll_path(poll) %></td>
         <td><%= link_to 'Destroy', poll, method: :delete, data: { confirm: 'Are you sure?' } %></td>

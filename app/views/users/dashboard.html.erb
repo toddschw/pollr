@@ -25,7 +25,10 @@
 
 <p><strong>Your Teams Polls Are</strong></p>
 <ul>
-  <li>Poll 1  [Vote] [View Result] </li>
+  <% @team.polls.each do |poll| %>
+    <li><%= poll.title %> <a href="http://localhost:3000/polls/vote/<%= poll.id %>">Vote</a>  <%= link_to 'Results', poll %>
+</li>
+<% end %>
 </ul>
 
 <p>
